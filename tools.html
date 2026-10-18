@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>پاکستانی ٹولز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Nastaliq+Urdu:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7f4;--card:#fff;--ink:#17201a;--muted:#5d6b62;--line:#dfe5df;--accent:#0f6b3f;--on:#fff;--soft:#e6f2ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1512;--card:#17201b;--ink:#eaf1ec;--muted:#9fb0a5;--line:#27342c;--accent:#3fbf7f;--on:#06210f;--soft:#1c2c23}}
+:root[data-theme="dark"]{--bg:#0f1512;--card:#17201b;--ink:#eaf1ec;--muted:#9fb0a5;--line:#27342c;--accent:#3fbf7f;--on:#06210f;--soft:#1c2c23}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Naskh Arabic','Segoe UI',serif;font-size:1.05rem;line-height:1.9}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px 48px}
+header{padding:36px 0 18px}
+h1,h2{font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic',serif;margin:0;line-height:2.1}
+h1{font-size:1.9rem;color:var(--accent)}
+.sub{color:var(--muted);margin:0}
+.tabs{display:flex;gap:8px;margin:18px 0;overflow-x:auto}
+.tab{flex:1;white-space:nowrap;padding:10px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;font:inherit;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel.on{display:block}
+h2{font-size:1.25rem;margin-bottom:4px}
+.hint{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+label{display:block;font-size:.95rem;color:var(--muted);margin:10px 0 2px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;direction:ltr;text-align:right}
+select{direction:rtl}
+button.go{margin-top:16px;padding:12px 26px;border:0;border-radius:10px;background:var(--accent);color:var(--on);font:inherit;font-weight:600;cursor:pointer}
+.out{margin-top:16px;padding:14px;border-radius:12px;background:var(--soft);display:none}
+.out.on{display:block}
+.big{font-family:'Noto Nastaliq Urdu',serif;font-size:1.3rem;line-height:2.3}
+.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:4px 0}
+.row span:last-child{direction:ltr;font-weight:600}
+.note{color:var(--muted);font-size:.85rem;margin-top:22px;text-align:center}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
+.date{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.date small{display:block;color:var(--muted);font-size:.85rem}
+.date b{display:block;font-size:1.05rem}
+.adj{display:flex;align-items:center;gap:8px;margin-top:6px;color:var(--muted);font-size:.8rem;line-height:1.6}
+.adj button{flex:none;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;background:var(--bg);color:var(--ink);font:inherit;line-height:1;cursor:pointer}
+@media (max-width:480px){.dates{grid-template-columns:1fr}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>پاکستانی ٹولز</h1>
+  <p class="sub">روزمرہ کے حساب کتاب، اردو میں، موبائل پر تیز۔</p>
+  <div class="dates">
+    <div class="date"><small>انگریزی تاریخ</small><b id="d-greg">—</b></div>
+    <div class="date"><small>ہجری تاریخ</small><b id="d-hijri">—</b>
+      <div class="adj"><button type="button" id="h-minus" aria-label="ایک دن پیچھے">−</button><button type="button" id="h-plus" aria-label="ایک دن آگے">+</button><span id="h-note"></span></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-p="zakat">زکوٰۃ</button>
+  <button class="tab" role="tab" aria-selected="false" data-p="gold">تولہ اور گرام</button>
+  <button class="tab" role="tab" aria-selected="false" data-p="words">رقم لفظوں میں</button>
+</div>
+
+<section class="panel on" id="zakat">
+  <h2>زکوٰۃ کیلکولیٹر</h2>
+  <p class="hint">تمام رقمیں روپوں میں لکھیں۔ جو چیز نہیں ہے وہاں خالی چھوڑ دیں۔</p>
+  <label>نقد رقم اور بینک بیلنس</label><input id="z-cash" inputmode="decimal" placeholder="0">
+  <label>سونے کی موجودہ قیمت (کل)</label><input id="z-gold" inputmode="decimal" placeholder="0">
+  <label>چاندی کی موجودہ قیمت (کل)</label><input id="z-silver" inputmode="decimal" placeholder="0">
+  <label>کاروباری مال کی قیمت</label><input id="z-biz" inputmode="decimal" placeholder="0">
+  <label>وہ رقم جو آپ کو وصول ہونی ہے</label><input id="z-recv" inputmode="decimal" placeholder="0">
+  <label>وہ قرض جو آپ کو ادا کرنا ہے</label><input id="z-debt" inputmode="decimal" placeholder="0">
+  <label>نصاب کی بنیاد</label>
+  <select id="z-basis"><option value="silver">چاندی (52.5 تولہ)</option><option value="gold">سونا (7.5 تولہ)</option></select>
+  <label>آج کی قیمت فی تولہ (منتخب دھات کی)</label><input id="z-price" inputmode="decimal" placeholder="مثلاً 250000">
+  <button class="go" id="z-go">حساب کریں</button>
+  <div class="out" id="z-out" aria-live="polite"></div>
+</section>
+
+<section class="panel" id="gold">
+  <h2>تولہ، ماشہ، رتی اور گرام</h2>
+  <p class="hint">ایک تولہ = 12 ماشے، ایک ماشہ = 8 رتی، ایک تولہ = 11.664 گرام۔</p>
+  <label>مقدار</label><input id="g-val" inputmode="decimal" value="1">
+  <label>یونٹ</label>
+  <select id="g-unit"><option value="11.664">تولہ</option><option value="0.972">ماشہ</option><option value="0.1215">رتی</option><option value="1">گرام</option><option value="31.1035">اونس (ٹرائے)</option></select>
+  <div class="out on" id="g-out"></div>
+</section>
+
+<section class="panel" id="words">
+  <h2>رقم لفظوں میں</h2>
+  <p class="hint">چیک اور رسید کے لیے۔ عدد لکھیں، اردو الفاظ مل جائیں گے۔</p>
+  <label>رقم (ہندسوں میں)</label><input id="w-val" inputmode="numeric" placeholder="مثلاً 125000">
+  <button class="go" id="w-go">لفظوں میں دیکھیں</button>
+  <div class="out" id="w-out" aria-live="polite"></div>
+</section>
+
+<p class="note">یہ ٹولز صرف اندازے کے لیے ہیں۔ زکوٰۃ کے مسائل میں کسی مستند عالم سے رجوع کریں۔</p>
+</div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var fmt=function(n,d){return n.toLocaleString('en-IN',{maximumFractionDigits:d===undefined?0:d})};
+var num=function(i){var v=parseFloat($(i).value);return isNaN(v)?0:v};
+
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected',x===t)});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===t.dataset.p)});
+  });
+});
+
+/* Dates */
+var hijriOffset=0,storedOff=null;
+try{storedOff=localStorage.getItem('hijriOffset')}catch(e){}
+if(storedOff!==null&&!isNaN(parseInt(storedOff,10))){hijriOffset=parseInt(storedOff,10)}
+else{try{if(Intl.DateTimeFormat().resolvedOptions().timeZone==='Asia/Karachi')hijriOffset=-1}catch(e){}}
+function showDates(){
+  var now=new Date(),hs='—';
+  $('d-greg').textContent=new Intl.DateTimeFormat('ur-PK-u-ca-gregory-nu-latn',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
+  try{hs=new Intl.DateTimeFormat('ur-PK-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric'}).format(new Date(now.getTime()+hijriOffset*86400000))}catch(e){}
+  $('d-hijri').textContent=hs;
+  $('h-note').textContent=(hijriOffset?'ایڈجسٹمنٹ '+(hijriOffset>0?'+':'−')+Math.abs(hijriOffset)+' دن۔ ':'')+'رویتِ ہلال کے مطابق + یا − سے ٹھیک کریں۔';
+}
+function adjH(d){hijriOffset=Math.max(-2,Math.min(2,hijriOffset+d));try{localStorage.setItem('hijriOffset',hijriOffset)}catch(e){}showDates()}
+$('h-minus').onclick=function(){adjH(-1)};$('h-plus').onclick=function(){adjH(1)};
+showDates();
+
+/* Zakat */
+$('z-go').onclick=function(){
+  var total=num('z-cash')+num('z-gold')+num('z-silver')+num('z-biz')+num('z-recv')-num('z-debt');
+  var price=num('z-price'),basis=$('z-basis').value;
+  var out=$('z-out');out.classList.add('on');
+  if(!price){out.textContent='پہلے آج کی قیمت فی تولہ لکھیں۔';return}
+  var nisab=(basis==='silver'?52.5:7.5)*price;
+  var html='<div class="row"><span>کل قابلِ زکوٰۃ مال</span><span>'+fmt(total)+'</span></div>'+
+           '<div class="row"><span>نصاب کی رقم</span><span>'+fmt(nisab)+'</span></div>';
+  if(total>=nisab&&total>0){html+='<p class="big">آپ پر زکوٰۃ فرض ہے: <b>'+fmt(total*0.025)+'</b> روپے (ڈھائی فیصد)</p>'}
+  else{html+='<p class="big">مال نصاب سے کم ہے، زکوٰۃ فرض نہیں ہوتی۔</p>'}
+  out.innerHTML=html;
+};
+
+/* Gold units */
+var units=[['تولہ',11.664],['ماشہ',0.972],['رتی',0.1215],['گرام',1],['اونس (ٹرائے)',31.1035]];
+function goldCalc(){
+  var g=num('g-val')*parseFloat($('g-unit').value),h='';
+  units.forEach(function(u){h+='<div class="row"><span>'+u[0]+'</span><span>'+fmt(g/u[1],4)+'</span></div>'});
+  $('g-out').innerHTML=h;
+}
+$('g-val').oninput=goldCalc;$('g-unit').onchange=goldCalc;goldCalc();
+
+/* Number to Urdu words (Pakistani system) */
+var W=('صفر ایک دو تین چار پانچ چھ سات آٹھ نو|دس گیارہ بارہ تیرہ چودہ پندرہ سولہ سترہ اٹھارہ انیس|'+
+'بیس اکیس بائیس تئیس چوبیس پچیس چھبیس ستائیس اٹھائیس انتیس|تیس اکتیس بتیس تینتیس چونتیس پینتیس چھتیس سینتیس اڑتیس انتالیس|'+
+'چالیس اکتالیس بیالیس تینتالیس چوالیس پینتالیس چھیالیس سینتالیس اڑتالیس انچاس|پچاس اکاون باون ترپن چون پچپن چھپن ستاون اٹھاون انسٹھ|'+
+'ساٹھ اکسٹھ باسٹھ تریسٹھ چونسٹھ پینسٹھ چھیاسٹھ سڑسٹھ اڑسٹھ انہتر|ستر اکہتر بہتر تہتر چوہتر پچھتر چھیہتر ستتر اٹھہتر اناسی|'+
+'اسی اکیاسی بیاسی تراسی چوراسی پچاسی چھیاسی ستاسی اٹھاسی نواسی|نوے اکانوے بانوے ترانوے چورانوے پچانوے چھیانوے ستانوے اٹھانوے ننانوے')
+  .split('|').join(' ').split(' ');
+function below1000(n){var p=[],h=Math.floor(n/100),r=n%100;if(h)p.push(W[h]+' سو');if(r)p.push(W[r]);return p.join(' ')}
+function toWords(n){
+  if(n===0)return W[0];
+  var names=['','ہزار','لاکھ','کروڑ','ارب','کھرب'],mods=[1000,100,100,100,100,100],parts=[],x=n;
+  for(var i=0;i<6;i++){
+    var v=i===5?x:x%mods[i];x=Math.floor(x/mods[i]);
+    if(v)parts.unshift(i===0?below1000(v):W[v]+' '+names[i]);
+  }
+  return parts.join(' ');
+}
+$('w-go').onclick=function(){
+  var raw=$('w-val').value.replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}).replace(/[,\s]/g,'');
+  var out=$('w-out');out.classList.add('on');
+  if(!/^\d{1,12}$/.test(raw)){out.textContent='براہِ کرم 12 ہندسوں تک کا درست عدد لکھیں۔';return}
+  var n=parseInt(raw,10);
+  out.innerHTML='<div class="row"><span>عدد</span><span>'+fmt(n)+'</span></div><p class="big">'+toWords(n)+' روپے صرف</p>';
+};
+</script>
+</body>
+</html>
