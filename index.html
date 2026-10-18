@@ -1,623 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>G Striker Improvement</title>
+<title>Everyday Tools</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Nastaliq+Urdu:wght@500;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f2f2f2;
-    --bg-raised: rgba(255,255,255,0.85);
-    --line: #d6d6d6;
-    --text: #1d1d1f;
-    --muted: #5a5f66;
-    --accent: #e2a33f;
-    --accent-soft: #f3e2bd;
-    --accent-text: #8f5a0f;
-    font-size: 16px;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', system-ui, sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1536' preserveAspectRatio='xMidYMid slice'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='45%25' r='75%25'%3E%3Cstop offset='0' stop-color='%23fbfbfb'/%3E%3Cstop offset='1' stop-color='%23e6e6e6'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1024' height='1536' fill='url(%23g)'/%3E%3Cg fill='%23cfcfcf' opacity='.45'%3E%3Cpolygon points='0,0 330,0 130,200 0,95'/%3E%3Cpolygon points='1024,1240 1024,1536 700,1536'/%3E%3Cpolygon points='0,1060 0,1330 190,1190'/%3E%3Cpolygon points='1024,150 1024,330 900,215'/%3E%3Cpolygon points='0,330 0,490 110,400'/%3E%3C/g%3E%3Cg fill='none' stroke='%238f8f8f' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M0,115 L1024,1139'/%3E%3Cpath d='M0,480 L500,0'/%3E%3Cpath d='M130,205 L340,0'/%3E%3Cpath d='M410,625 L1035,0'/%3E%3Cpath d='M830,200 L1024,6'/%3E%3Cpath d='M850,212 L1024,38'/%3E%3Cpath d='M870,224 L1024,70'/%3E%3Cpath d='M0,670 L860,1530'/%3E%3Cpath d='M40,700 L520,1180'/%3E%3Cpath d='M60,730 L300,970'/%3E%3Cpath d='M0,1060 L520,1580'/%3E%3Cpath d='M700,1180 L1024,860'/%3E%3Cpath d='M560,1190 L1024,730'/%3E%3Cpath d='M850,545 L1024,720'/%3E%3Cpath d='M0,820 L270,550'/%3E%3C/g%3E%3C/svg%3E") center / cover no-repeat;
-    pointer-events: none;
-  }
-  h1, h2, h3 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0;
-  }
-  a { color: inherit; }
-  .wrap { max-width: 960px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-
-  /* Hero */
-  .hero {
-    position: relative;
-    padding: 96px 0 72px;
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-  }
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: -180px;
-    right: -120px;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
-    opacity: 0.9;
-  }
-  .hero::after {
-    content: "";
-    position: absolute;
-    bottom: -160px;
-    left: -140px;
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(37,196,201,0.16) 0%, transparent 70%);
-  }
-  .hero-inner { position: relative; max-width: 640px; }
-  .kicker {
-    font-size: 0.95rem;
-    color: var(--accent-text);
-    margin: 0 0 18px;
-  }
-  h1 {
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    line-height: 1.08;
-    margin-bottom: 20px;
-  }
-  .hero p.lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    max-width: 46ch;
-    margin: 0 0 34px;
-  }
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn {
-    display: inline-block;
-    padding: 13px 26px;
-    border-radius: 4px;
-    background: var(--accent);
-    color: #1c1409;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform 0.15s ease;
-  }
-  .btn:hover { transform: translateY(-1px); }
-  .btn.secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--line);
-  }
-  .btn:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  /* About */
-  .about {
-    padding: 72px 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 40px;
-    align-items: start;
-  }
-  .about h2 { font-size: 1.6rem; }
-  .about p { color: var(--muted); font-size: 1.05rem; max-width: 56ch; }
-
-  /* Services — alternating rows, not identical cards */
-  .services { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .services > .wrap > h2 { font-size: 1.6rem; margin-bottom: 44px; }
-  .service-row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 28px;
-    padding: 28px 0;
-    border-top: 1px solid var(--line);
-  }
-  .service-row:last-child { border-bottom: 1px solid var(--line); }
-  .service-row h3 {
-    font-size: 1.25rem;
-    color: var(--accent-text);
-  }
-  .service-row p { color: var(--muted); margin: 8px 0 0; max-width: 52ch; }
-
-  /* Accounts to follow — app-style list */
-  .accounts { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .accounts h2 { font-size: 1.6rem; margin-bottom: 6px; }
-  .accounts p.lede { color: var(--muted); margin: 0 0 28px; }
-  .acc-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .acc-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-    padding: 32px 16px;
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-  }
-  .acc-avatar {
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.6rem;
-    margin-bottom: 6px;
-  }
-  .acc-info { min-width: 0; }
-  .acc-name { font-weight: 600; font-size: 1.05rem; word-break: break-word; }
-  .acc-meta { color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
-  .acc-follow {
-    margin-top: 10px;
-    padding: 10px 32px;
-    border-radius: 999px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    white-space: nowrap;
-  }
-  .acc-follow.tiktok { background: linear-gradient(135deg,#ff3b5c,#25c4c9); }
-  .acc-follow.youtube { background: linear-gradient(135deg,#ff2d2d,#ff8a00); }
-  .acc-follow.instagram { background: linear-gradient(135deg,#dd2a7b,#8134af); }
-  .acc-follow.facebook { background: linear-gradient(135deg,#1877f2,#0a58ca); }
-  .acc-follow.whatsapp { background: #25d366; }
-
-  /* Contact */
-  .contact { padding: 72px 0; }
-  .contact h2 { font-size: 1.6rem; margin-bottom: 14px; }
-  .contact a.email {
-    font-size: 1.15rem;
-    color: var(--accent-text);
-    text-decoration: none;
-    border-bottom: 1px solid var(--accent);
-  }
-
-  footer {
-    padding: 32px 0;
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 680px) {
-    .about-grid, .service-row { grid-template-columns: 1fr; gap: 10px; }
-    .hero { padding: 72px 0 56px; }
-  }
-
-  /* Leaderboard */
-  .leaderboard { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .leaderboard h2 { font-size: 1.6rem; margin-bottom: 6px; }
-  .leaderboard p.lede { color: var(--muted); margin: 0 0 28px; }
-  .lb-rule {
-    display: inline-block;
-    font-size: 0.85rem;
-    color: var(--accent-text);
-    background: var(--accent-soft);
-    padding: 6px 14px;
-    border-radius: 4px;
-    margin-bottom: 28px;
-  }
-  table.lb-table { width: 100%; border-collapse: collapse; }
-  table.lb-table th, table.lb-table td {
-    text-align: left;
-    padding: 14px 10px;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.95rem;
-  }
-  table.lb-table th { color: var(--muted); font-weight: 500; font-size: 0.85rem; }
-  table.lb-table td.stars { color: var(--accent-text); font-weight: 600; }
-  .lb-empty { color: var(--muted); padding: 28px 0; border-bottom: 1px solid var(--line); }
-
-  /* Join form */
-  .join { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .join h2 { font-size: 1.6rem; margin-bottom: 6px; }
-  .join p.lede { color: var(--muted); margin: 0 0 10px; max-width: 56ch; }
-  .join ol.steps {
-    color: var(--muted);
-    margin: 0 0 28px;
-    padding-inline-start: 20px;
-  }
-  .join ol.steps li { margin-bottom: 6px; }
-  form.join-form {
-    display: grid;
-    gap: 16px;
-    max-width: 480px;
-  }
-  .field label {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .field input[type="text"],
-  .field input[type="url"],
-  .field select {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 4px;
-    border: 1px solid var(--line);
-    background: var(--bg-raised);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 0.95rem;
-  }
-  .field-check {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-  .field-check input { margin-top: 4px; }
-  .join-form button {
-    justify-self: start;
-    padding: 13px 26px;
-    border-radius: 4px;
-    background: var(--accent);
-    color: #1c1409;
-    border: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .join-form button:disabled { opacity: 0.5; cursor: not-allowed; }
-  .join-note {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  /* Videos */
-  .videos { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .videos h2 { font-size: 1.6rem; margin-bottom: 20px; }
-  .videos video { display: block; width: 100%; max-width: 640px; border-radius: 16px; background: #000; }
-
-  /* Floating + button and popup */
-  .fab {
-    position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + 14px);
-    right: 14px;
-    z-index: 50;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: none;
-    background: #25d366;
-    color: #062b12;
-    font-size: 1.9rem;
-    line-height: 1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-  }
-  .fab:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
-  .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    overflow-y: auto;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-    max-height: 100%;
-    overflow-y: auto;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 28px 22px 24px;
-  }
-  .modal h2 { font-size: 1.4rem; margin-bottom: 4px; }
-  .modal p.sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 18px; }
-  .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-size: 1.7rem;
-    line-height: 1;
-    cursor: pointer;
-  }
-  .join-form button.btn-wa { background: #25d366; color: #fff; }
+:root{--bg:#f6f7f4;--card:#fff;--ink:#17201a;--muted:#5d6b62;--line:#dfe5df;--accent:#0f6b3f;--on:#fff;--soft:#e6f2ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1512;--card:#17201b;--ink:#eaf1ec;--muted:#9fb0a5;--line:#27342c;--accent:#3fbf7f;--on:#06210f;--soft:#1c2c23}}
+:root[data-theme="dark"]{--bg:#0f1512;--card:#17201b;--ink:#eaf1ec;--muted:#9fb0a5;--line:#27342c;--accent:#3fbf7f;--on:#06210f;--soft:#1c2c23}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,'Segoe UI',sans-serif;font-size:1.05rem;line-height:1.7}
+html[lang="ur"] body,html[lang="ar"] body,html[lang="fa"] body{font-family:'Noto Naskh Arabic',serif;line-height:1.9}
+html[lang="hi"] body{font-family:'Noto Sans Devanagari',sans-serif}
+html[lang="ur"] h1,html[lang="ur"] .big{font-family:'Noto Nastaliq Urdu',serif;line-height:2.2}
+.wrap{max-width:640px;margin:0 auto;padding:0 18px 48px}
+header{padding:28px 0 12px}
+h1{margin:12px 0 0;font-size:1.8rem;color:var(--accent);line-height:1.4}
+.sub{color:var(--muted);margin:0}
+.langs{display:flex;gap:6px;flex-wrap:wrap}
+.lang{padding:5px 12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;font:inherit;font-size:.9rem;cursor:pointer}
+.lang[aria-pressed="true"]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.tabs{display:flex;gap:8px;margin:16px 0;overflow-x:auto}
+.tab{flex:1;white-space:nowrap;padding:10px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;font:inherit;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel.on{display:block}
+.hint{color:var(--muted);font-size:.92rem;margin:0 0 10px}
+label{display:block;font-size:.95rem;color:var(--muted);margin:10px 0 2px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;text-align:start}
+button.go{margin-top:16px;padding:12px 26px;border:0;border-radius:10px;background:var(--accent);color:var(--on);font:inherit;font-weight:600;cursor:pointer}
+.out{margin-top:16px;padding:14px;border-radius:12px;background:var(--soft);display:none}
+.out.on{display:block}
+.big{font-size:1.25rem;line-height:1.9}
+.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:4px 0}
+.row span:last-child{direction:ltr;font-weight:600}
+.note{color:var(--muted);font-size:.85rem;margin-top:22px;text-align:center}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 0}
+.date{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.date small{display:block;color:var(--muted);font-size:.85rem}
+.date b{display:block;font-size:1.02rem}
+.adj{display:flex;align-items:center;gap:8px;margin-top:6px;color:var(--muted);font-size:.8rem;line-height:1.5}
+.adj button{flex:none;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;background:var(--bg);color:var(--ink);font:inherit;line-height:1;cursor:pointer}
+@media (max-width:480px){.dates{grid-template-columns:1fr}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
-
-<button type="button" class="fab" id="openAdd" aria-label="Add your account" title="Add your account">+</button>
-
-<header class="hero">
-  <div class="wrap hero-inner">
-    <p class="kicker">G Striker Improvement</p>
-    <h1>Grow your account, one deliberate step at a time.</h1>
-    <p class="lede">A growth-focused community, practical content, and honest feedback for creators who want their channel to actually move.</p>
-    <div class="cta-row">
-      <a class="btn" href="#contact">Get in touch</a>
-      <a class="btn secondary" href="#about">Learn more</a>
+<div class="wrap">
+<header>
+  <div class="langs" id="langs"></div>
+  <h1 data-t="title"></h1>
+  <p class="sub" data-t="sub"></p>
+  <div class="dates">
+    <div class="date"><small data-t="dg"></small><b id="d-greg">—</b></div>
+    <div class="date"><small data-t="dh"></small><b id="d-hijri">—</b>
+      <div class="adj"><button type="button" id="h-minus">−</button><button type="button" id="h-plus">+</button><span id="h-note"></span></div>
     </div>
   </div>
 </header>
 
-<section class="accounts" id="social">
-  <div class="wrap">
-    <h2>Accounts to Follow</h2>
-    <p class="lede">Follow all the accounts below — these are the required follows to qualify for the leaderboard.</p>
-    <div class="acc-list">
-      <div class="acc-row">
-        <div class="acc-avatar" style="background: linear-gradient(135deg,#ff3b5c,#25c4c9);">MP</div>
-        <div class="acc-info">
-          <div class="acc-name">mrpakstriker</div>
-          <div class="acc-meta">TikTok</div>
-        </div>
-        <a class="acc-follow tiktok" href="https://www.tiktok.com/@mrpakstriker" target="_blank" rel="noopener">Follow</a>
-      </div>
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-p="zakat" data-t="tz"></button>
+  <button class="tab" role="tab" aria-selected="false" data-p="gold" data-t="tg"></button>
+  <button class="tab" role="tab" aria-selected="false" data-p="words" data-t="tw"></button>
+</div>
 
-      <div class="acc-row">
-        <div class="acc-avatar" style="background: linear-gradient(135deg,#ff2d2d,#ff8a00);">GS</div>
-        <div class="acc-info">
-          <div class="acc-name">MrstrikeGgroth</div>
-          <div class="acc-meta">YouTube</div>
-        </div>
-        <a class="acc-follow youtube" href="https://www.youtube.com/@MrstrikeGgroth" target="_blank" rel="noopener">Follow</a>
-      </div>
-
-      <div class="acc-row">
-        <div class="acc-avatar" style="background: linear-gradient(135deg,#dd2a7b,#8134af);">GS</div>
-        <div class="acc-info">
-          <div class="acc-name">MrstrikeGgroth</div>
-          <div class="acc-meta">Instagram</div>
-        </div>
-        <a class="acc-follow instagram" href="https://www.instagram.com/MrstrikeGgroth" target="_blank" rel="noopener">Follow</a>
-      </div>
-
-      <div class="acc-row">
-        <div class="acc-avatar" style="background: linear-gradient(135deg,#1877f2,#0a58ca);">GS</div>
-        <div class="acc-info">
-          <div class="acc-name">MrstrikeGgroth</div>
-          <div class="acc-meta">Facebook</div>
-        </div>
-        <a class="acc-follow facebook" href="https://www.facebook.com/MrstrikeGgroth" target="_blank" rel="noopener">Follow</a>
-      </div>
-
-    </div>
-  </div>
+<section class="panel on" id="zakat">
+  <p class="hint" data-t="zh"></p>
+  <label data-t="zc"></label><input id="z-cash" inputmode="decimal" placeholder="0">
+  <label data-t="zgo"></label><input id="z-gold" inputmode="decimal" placeholder="0">
+  <label data-t="zs"></label><input id="z-silver" inputmode="decimal" placeholder="0">
+  <label data-t="zb"></label><input id="z-biz" inputmode="decimal" placeholder="0">
+  <label data-t="zr"></label><input id="z-recv" inputmode="decimal" placeholder="0">
+  <label data-t="zd"></label><input id="z-debt" inputmode="decimal" placeholder="0">
+  <label data-t="zbasis"></label>
+  <select id="z-basis"><option value="silver" data-t="zbs"></option><option value="gold" data-t="zbg"></option></select>
+  <label data-t="zp"></label>
+  <input id="z-price" inputmode="decimal" placeholder="0">
+  <select id="z-unit" style="margin-top:6px"><option value="11.664" data-t="u_tola"></option><option value="1" data-t="u_gram"></option></select>
+  <button class="go" id="z-go" data-t="zbtn"></button>
+  <div class="out" id="z-out" aria-live="polite"></div>
 </section>
 
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <h2>About</h2>
-    <p>G Striker Improvement is focused on helping people improve their accounts and channels through growth-focused ideas, useful content, and an active community.</p>
-  </div>
+<section class="panel" id="gold">
+  <label data-t="gq"></label><input id="g-val" inputmode="decimal" value="1">
+  <label data-t="gu"></label>
+  <select id="g-unit"><option value="11.664" data-t="u_tola"></option><option value="0.972" data-t="u_masha"></option><option value="0.1215" data-t="u_ratti"></option><option value="1" data-t="u_gram"></option><option value="31.1035" data-t="u_oz"></option></select>
+  <div class="out on" id="g-out"></div>
 </section>
 
-<section class="leaderboard" id="leaderboard">
-  <div class="wrap">
-    <h2>Community Leaderboard</h2>
-    <p class="lede">More stars, higher rank — that's how more people end up following you back.</p>
-    <span class="lb-rule">Rule: 1 star per 10 followers</span>
-    <div id="lb-body">
-      <div class="lb-empty">No members yet — be the first!</div>
-    </div>
-  </div>
+<section class="panel" id="words">
+  <label data-t="wl"></label><input id="w-val" inputmode="numeric" placeholder="125000">
+  <button class="go" id="w-go" data-t="wbtn"></button>
+  <div class="out" id="w-out" aria-live="polite"></div>
 </section>
 
-<section class="services" id="services">
-  <div class="wrap">
-    <h2>What we do</h2>
-
-    <div class="service-row">
-      <h3>Community</h3>
-      <p>Join the G growth community to connect with others, share ideas, and support continuous improvement.</p>
-    </div>
-
-    <div class="service-row">
-      <h3>Content</h3>
-      <p>Discover practical tips and growth-focused content for improving your account and channel.</p>
-    </div>
-
-    <div class="service-row">
-      <h3>Events</h3>
-      <p>Stay connected with upcoming community activities, discussions, and opportunities to grow together.</p>
-    </div>
-  </div>
-</section>
-
-<section class="videos" id="videos">
-  <div class="wrap">
-    <h2>Videos</h2>
-    <video controls playsinline preload="metadata" src="1000196086.mp4#t=0.1">
-      Your browser does not support video playback.
-    </video>
-  </div>
-</section>
-
-<section class="join" id="join">
-  <div class="wrap">
-    <h2>Add Your Account</h2>
-    <p class="lede">Three easy steps to get on the leaderboard:</p>
-    <ol class="steps">
-      <li>Follow all the accounts listed above.</li>
-      <li>Tap the + button, fill in your details, and send them to us on WhatsApp or Gmail.</li>
-      <li>Once confirmed, your account and stars are added to the leaderboard.</li>
-    </ol>
-    <button type="button" class="btn" id="openAdd2" style="border:none;cursor:pointer;font-family:inherit;">+ Add Your Account</button>
-  </div>
-</section>
-
-<section class="contact" id="contact">
-  <div class="wrap">
-    <h2>Contact</h2>
-    <p><a class="email" href="mailto:musarazaq232009@gmail.com">musarazaq232009@gmail.com</a></p>
-    <p><a class="email" href="https://wa.me/923159209332" target="_blank" rel="noopener">WhatsApp: +92 315 9209332</a></p>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <p>&copy; 2026 G Striker Improvement. All rights reserved.</p>
-  </div>
-</footer>
-
-<div class="modal-overlay" id="addModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="addTitle">
-    <button type="button" class="modal-close" id="closeAdd" aria-label="Close">&times;</button>
-    <h2 id="addTitle">Add Your Account</h2>
-    <p class="sub">Fill in your details and send them to us. We review every request before adding it.</p>
-    <form class="join-form" id="joinForm" novalidate onsubmit="return false;">
-      <div class="field">
-        <label for="jf-name">Your name</label>
-        <input type="text" id="jf-name">
-      </div>
-      <div class="field">
-        <label for="jf-platform">Platform</label>
-        <select id="jf-platform">
-          <option value="TikTok">TikTok</option>
-          <option value="YouTube">YouTube</option>
-          <option value="Instagram">Instagram</option>
-          <option value="Facebook">Facebook</option>
-          <option value="WhatsApp Group">WhatsApp Group</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="jf-link">Account / channel / group link</label>
-        <input type="text" id="jf-link" placeholder="https://">
-      </div>
-      <div class="field">
-        <label for="jf-followers">Followers / members (approx.)</label>
-        <input type="text" id="jf-followers" placeholder="e.g. 340">
-      </div>
-      <label class="field-check">
-        <input type="checkbox" id="jf-confirm">
-        <span>I confirm I've followed all the accounts listed on this page</span>
-      </label>
-      <p id="jf-error" class="join-note" style="color:#e2734f; display:none;"></p>
-      <div class="cta-row">
-        <button type="button" class="btn btn-wa" id="sendWa">Send on WhatsApp</button>
-        <button type="button" class="btn" id="sendMail">Send via Gmail</button>
-        <button type="button" class="btn secondary" id="copyMsg">Copy message</button>
-      </div>
-      <p class="join-note" id="jf-note">Your details go straight to us. If WhatsApp or Gmail does not open, tap "Copy message" and paste it anywhere.</p>
-    </form>
-  </div>
+<p class="note" data-t="note"></p>
 </div>
 
 <script>
-  (function () {
-    var overlay = document.getElementById('addModal');
-    function openM() { overlay.classList.add('open'); }
-    function closeM() { overlay.classList.remove('open'); }
-    document.getElementById('openAdd').onclick = openM;
-    document.getElementById('openAdd2').onclick = openM;
-    document.getElementById('closeAdd').onclick = closeM;
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeM(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeM(); });
+var $=function(i){return document.getElementById(i)};
+var T={
+ur:{title:'روزمرہ ٹولز',sub:'زکوٰۃ، تولہ اور گرام، رقم لفظوں میں، اور تاریخیں',dg:'انگریزی تاریخ',dh:'ہجری تاریخ',adj:'رویتِ ہلال کے مطابق + یا − سے ٹھیک کریں۔',tz:'زکوٰۃ',tg:'تولہ اور گرام',tw:'رقم لفظوں میں',zh:'تمام رقمیں ایک ہی کرنسی میں لکھیں۔',zc:'نقد رقم اور بینک بیلنس',zgo:'سونے کی قیمت (کل)',zs:'چاندی کی قیمت (کل)',zb:'کاروباری مال',zr:'جو رقم وصول ہونی ہے',zd:'جو قرض ادا کرنا ہے',zbasis:'نصاب کی بنیاد',zbs:'چاندی (612.36 گرام)',zbg:'سونا (87.48 گرام)',zp:'آج کی قیمت (منتخب دھات)',zbtn:'حساب کریں',zneed:'پہلے آج کی قیمت لکھیں۔',ztot:'کل قابلِ زکوٰۃ مال',znis:'نصاب کی رقم',zdue:'آپ پر زکوٰۃ فرض ہے (ڈھائی فیصد):',znot:'مال نصاب سے کم ہے، زکوٰۃ فرض نہیں۔',gq:'مقدار',gu:'یونٹ',u_tola:'تولہ',u_masha:'ماشہ',u_ratti:'رتی',u_gram:'گرام',u_oz:'اونس (ٹرائے)',wl:'رقم (ہندسوں میں)',wbtn:'لفظوں میں دیکھیں',werr:'12 ہندسوں تک کا درست عدد لکھیں۔',wsuf:' روپے صرف',note:'یہ ٹولز صرف اندازے کے لیے ہیں۔ زکوٰۃ کے مسائل میں کسی مستند عالم سے رجوع کریں۔'},
+en:{title:'Everyday Tools',sub:'Zakat, gold units, amount in words, and dates',dg:'Gregorian date',dh:'Hijri date',adj:'Adjust with + or − to match your local moon sighting.',tz:'Zakat',tg:'Gold units',tw:'Amount in words',zh:'Use one currency for all amounts.',zc:'Cash and bank balance',zgo:'Gold value (total)',zs:'Silver value (total)',zb:'Business goods',zr:'Money owed to you',zd:'Debts you must pay',zbasis:'Nisab based on',zbs:'Silver (612.36 g)',zbg:'Gold (87.48 g)',zp:"Today's price (chosen metal)",zbtn:'Calculate',zneed:"Enter today's price first.",ztot:'Total zakatable wealth',znis:'Nisab amount',zdue:'Zakat due (2.5%):',znot:'Wealth is below nisab; zakat is not due.',gq:'Amount',gu:'Unit',u_tola:'Tola',u_masha:'Masha',u_ratti:'Ratti',u_gram:'Gram',u_oz:'Troy ounce',wl:'Amount (digits)',wbtn:'Show in words',werr:'Enter a valid number up to 12 digits.',wsuf:' only',note:'These tools give estimates only. For zakat rulings, consult a qualified scholar.'},
+ar:{title:'أدوات يومية',sub:'الزكاة، وحدات الذهب، المبلغ بالحروف، والتواريخ',dg:'التاريخ الميلادي',dh:'التاريخ الهجري',adj:'عدّل بـ + أو − حسب رؤية الهلال في بلدك.',tz:'الزكاة',tg:'وحدات الذهب',tw:'المبلغ بالحروف',zh:'استخدم عملة واحدة لكل المبالغ.',zc:'النقد ورصيد البنك',zgo:'قيمة الذهب (الإجمالي)',zs:'قيمة الفضة (الإجمالي)',zb:'عروض التجارة',zr:'الديون المستحقة لك',zd:'الديون التي عليك',zbasis:'النصاب بحسب',zbs:'الفضة (612.36 غرام)',zbg:'الذهب (87.48 غرام)',zp:'سعر اليوم (للمعدن المختار)',zbtn:'احسب',zneed:'أدخل سعر اليوم أولاً.',ztot:'إجمالي المال الزكوي',znis:'قيمة النصاب',zdue:'الزكاة الواجبة (2.5%):',znot:'المال أقل من النصاب، فلا زكاة.',gq:'الكمية',gu:'الوحدة',u_tola:'تولة',u_masha:'ماشا',u_ratti:'رتي',u_gram:'غرام',u_oz:'أونصة (تروي)',wl:'المبلغ (بالأرقام)',wbtn:'اعرض بالحروف',wna:'هذه الأداة متاحة حالياً بالأردية والإنجليزية فقط.',note:'هذه الأدوات للتقدير فقط. للأحكام الشرعية في الزكاة راجع عالماً مختصاً.'},
+fa:{title:'ابزارهای روزمره',sub:'زکات، واحدهای طلا، مبلغ به حروف و تاریخ‌ها',dg:'تاریخ میلادی',dh:'تاریخ هجری قمری',adj:'با + یا − مطابق رؤیت هلال تنظیم کنید.',tz:'زکات',tg:'واحدهای طلا',tw:'مبلغ به حروف',zh:'همهٔ مبالغ را با یک واحد پول وارد کنید.',zc:'پول نقد و موجودی بانک',zgo:'ارزش طلا (کل)',zs:'ارزش نقره (کل)',zb:'کالای تجاری',zr:'طلب‌های وصول‌شدنی',zd:'بدهی‌هایی که باید بپردازید',zbasis:'نصاب بر پایه',zbs:'نقره (612.36 گرم)',zbg:'طلا (87.48 گرم)',zp:'قیمت امروز (فلز انتخابی)',zbtn:'محاسبه',zneed:'ابتدا قیمت امروز را وارد کنید.',ztot:'کل دارایی مشمول زکات',znis:'مقدار نصاب',zdue:'زکات واجب (2.5%):',znot:'دارایی کمتر از نصاب است؛ زکات واجب نیست.',gq:'مقدار',gu:'واحد',u_tola:'تولا',u_masha:'ماشه',u_ratti:'رتی',u_gram:'گرم',u_oz:'اونس (تروی)',wl:'مبلغ (با ارقام)',wbtn:'نمایش به حروف',wna:'این ابزار فعلاً فقط به اردو و انگلیسی موجود است.',note:'این ابزارها فقط برآورد می‌دهند. برای احکام زکات به عالم مورد اعتماد مراجعه کنید.'},
+hi:{title:'रोज़मर्रा के टूल्स',sub:'ज़कात, सोने की इकाइयाँ, रकम शब्दों में और तारीख़ें',dg:'अंग्रेज़ी तारीख़',dh:'हिजरी तारीख़',adj:'अपने यहाँ चाँद के मुताबिक़ + या − से ठीक करें।',tz:'ज़कात',tg:'सोने की इकाइयाँ',tw:'रकम शब्दों में',zh:'सभी रक़में एक ही करेंसी में लिखें।',zc:'नक़द और बैंक बैलेंस',zgo:'सोने की कुल क़ीमत',zs:'चाँदी की कुल क़ीमत',zb:'कारोबारी माल',zr:'जो रकम आपको मिलनी है',zd:'जो क़र्ज़ चुकाना है',zbasis:'निसाब का आधार',zbs:'चाँदी (612.36 ग्राम)',zbg:'सोना (87.48 ग्राम)',zp:'आज की क़ीमत (चुनी धातु)',zbtn:'हिसाब करें',zneed:'पहले आज की क़ीमत लिखें।',ztot:'कुल ज़कात-योग्य माल',znis:'निसाब की रक़म',zdue:'ज़कात फ़र्ज़ है (ढाई प्रतिशत):',znot:'माल निसाब से कम है, ज़कात फ़र्ज़ नहीं।',gq:'मात्रा',gu:'इकाई',u_tola:'तोला',u_masha:'माशा',u_ratti:'रत्ती',u_gram:'ग्राम',u_oz:'औंस (ट्रॉय)',wl:'रकम (अंकों में)',wbtn:'शब्दों में दिखाएँ',wna:'यह टूल अभी सिर्फ़ उर्दू और अंग्रेज़ी में है।',note:'ये टूल सिर्फ़ अंदाज़े के लिए हैं। ज़कात के मसलों में किसी मुस्तनद आलिम से पूछें।'}
+};
+var LOC={ur:'ur-PK',en:'en-GB',ar:'ar',fa:'fa',hi:'hi-IN'},NAMES={ur:'اردو',en:'English',ar:'العربية',fa:'فارسی',hi:'हिन्दी'};
+var lang='ur';
+var fmt=function(n,d){return n.toLocaleString('en-IN',{maximumFractionDigits:d===undefined?0:d})};
+var num=function(i){var v=parseFloat($(i).value);return isNaN(v)?0:v};
 
-    function build() {
-      var errorEl = document.getElementById('jf-error');
-      errorEl.style.display = 'none';
-      var name = document.getElementById('jf-name').value.trim();
-      var platform = document.getElementById('jf-platform').value;
-      var link = document.getElementById('jf-link').value.trim();
-      var followers = document.getElementById('jf-followers').value.trim();
-      var confirmed = document.getElementById('jf-confirm').checked;
-      var missing = [];
-      if (!name) missing.push('Name');
-      if (!link) missing.push('Link');
-      if (!followers) missing.push('Followers / members');
-      if (!confirmed) missing.push('confirmation that you followed the accounts');
-      if (missing.length > 0) {
-        errorEl.textContent = 'Please fill in: ' + missing.join(', ');
-        errorEl.style.display = 'block';
-        return null;
-      }
-      return {
-        subject: 'G Striker Improvement - New account request: ' + name,
-        body:
-          'Name: ' + name + '\n' +
-          'Platform: ' + platform + '\n' +
-          'Link: ' + link + '\n' +
-          'Followers / members: ' + followers + '\n' +
-          'Confirmation: followed all the accounts'
-      };
-    }
+/* Hijri offset (Pakistan default -1) */
+var off=0,so=null;
+try{so=localStorage.getItem('hijriOffset')}catch(e){}
+if(so!==null&&!isNaN(parseInt(so,10))){off=parseInt(so,10)}
+else{try{if(Intl.DateTimeFormat().resolvedOptions().timeZone==='Asia/Karachi')off=-1}catch(e){}}
+function showDates(){
+  var now=new Date(),hs='—',l=LOC[lang];
+  $('d-greg').textContent=new Intl.DateTimeFormat(l+'-u-ca-gregory-nu-latn',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(now);
+  try{hs=new Intl.DateTimeFormat(l+'-u-ca-islamic-umalqura-nu-latn',{day:'numeric',month:'long',year:'numeric'}).format(new Date(now.getTime()+off*86400000))}catch(e){}
+  $('d-hijri').textContent=hs;
+  $('h-note').textContent=(off?(off>0?'+':'−')+Math.abs(off)+' · ':'')+T[lang].adj;
+}
+function adjH(d){off=Math.max(-2,Math.min(2,off+d));try{localStorage.setItem('hijriOffset',off)}catch(e){}showDates()}
+$('h-minus').onclick=function(){adjH(-1)};$('h-plus').onclick=function(){adjH(1)};
 
-    function go(url) {
-      var w = window.open(url, '_blank');
-      if (!w) { window.location.href = url; }
-    }
+/* Language */
+function setLang(l){
+  lang=l;var h=document.documentElement;
+  h.lang=l;h.dir=(l==='ur'||l==='ar'||l==='fa')?'rtl':'ltr';
+  document.title=T[l].title;
+  document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=T[l][e.dataset.t]});
+  document.querySelectorAll('.lang').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l)});
+  ['z-out','w-out'].forEach(function(i){$(i).className='out';$(i).innerHTML=''});
+  try{localStorage.setItem('lang',l)}catch(e){}
+  showDates();goldCalc();
+}
+Object.keys(NAMES).forEach(function(k){
+  var b=document.createElement('button');b.type='button';b.className='lang';b.dataset.l=k;b.textContent=NAMES[k];
+  b.onclick=function(){setLang(k)};$('langs').appendChild(b);
+});
 
-    document.getElementById('sendWa').onclick = function () {
-      var m = build();
-      if (!m) return;
-      go('https://wa.me/923159209332?text=' + encodeURIComponent(m.subject + '\n\n' + m.body));
-    };
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected',x===t)});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===t.dataset.p)});
+  });
+});
 
-    document.getElementById('sendMail').onclick = function () {
-      var m = build();
-      if (!m) return;
-      go('https://mail.google.com/mail/?view=cm&fs=1'
-        + '&to=' + encodeURIComponent('musarazaq232009@gmail.com')
-        + '&su=' + encodeURIComponent(m.subject)
-        + '&body=' + encodeURIComponent(m.body));
-    };
+/* Zakat: nisab by weight, price per tola or gram */
+$('z-go').onclick=function(){
+  var t=T[lang],out=$('z-out');out.classList.add('on');
+  var price=num('z-price')/parseFloat($('z-unit').value);
+  if(!price){out.textContent=t.zneed;return}
+  var total=num('z-cash')+num('z-gold')+num('z-silver')+num('z-biz')+num('z-recv')-num('z-debt');
+  var nisab=($('z-basis').value==='silver'?612.36:87.48)*price;
+  var h='<div class="row"><span>'+t.ztot+'</span><span>'+fmt(total)+'</span></div><div class="row"><span>'+t.znis+'</span><span>'+fmt(nisab)+'</span></div>';
+  h+=(total>=nisab&&total>0)?'<p class="big">'+t.zdue+' <b>'+fmt(total*0.025)+'</b></p>':'<p class="big">'+t.znot+'</p>';
+  out.innerHTML=h;
+};
 
-    document.getElementById('copyMsg').onclick = function () {
-      var m = build();
-      if (!m) return;
-      var text = m.subject + '\n\n' + m.body;
-      var note = document.getElementById('jf-note');
-      function done() { note.textContent = 'Copied. Now paste it into any email or WhatsApp and send it to us.'; }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(function () {
-          window.prompt('Copy this message:', text);
-        });
-      } else {
-        window.prompt('Copy this message:', text);
-      }
-    };
-  })();
+/* Gold units */
+var UK=[['u_tola',11.664],['u_masha',0.972],['u_ratti',0.1215],['u_gram',1],['u_oz',31.1035]];
+function goldCalc(){
+  var g=num('g-val')*parseFloat($('g-unit').value),h='';
+  UK.forEach(function(u){h+='<div class="row"><span>'+T[lang][u[0]]+'</span><span>'+fmt(g/u[1],4)+'</span></div>'});
+  $('g-out').innerHTML=h;
+}
+$('g-val').oninput=goldCalc;$('g-unit').onchange=goldCalc;
+
+/* Amount in words: Urdu (Pakistani system) and English */
+var W=('صفر ایک دو تین چار پانچ چھ سات آٹھ نو|دس گیارہ بارہ تیرہ چودہ پندرہ سولہ سترہ اٹھارہ انیس|'+
+'بیس اکیس بائیس تئیس چوبیس پچیس چھبیس ستائیس اٹھائیس انتیس|تیس اکتیس بتیس تینتیس چونتیس پینتیس چھتیس سینتیس اڑتیس انتالیس|'+
+'چالیس اکتالیس بیالیس تینتالیس چوالیس پینتالیس چھیالیس سینتالیس اڑتالیس انچاس|پچاس اکاون باون ترپن چون پچپن چھپن ستاون اٹھاون انسٹھ|'+
+'ساٹھ اکسٹھ باسٹھ تریسٹھ چونسٹھ پینسٹھ چھیاسٹھ سڑسٹھ اڑسٹھ انہتر|ستر اکہتر بہتر تہتر چوہتر پچھتر چھیہتر ستتر اٹھہتر اناسی|'+
+'اسی اکیاسی بیاسی تراسی چوراسی پچاسی چھیاسی ستاسی اٹھاسی نواسی|نوے اکانوے بانوے ترانوے چورانوے پچانوے چھیانوے ستانوے اٹھانوے ننانوے')
+  .split('|').join(' ').split(' ');
+function b1000(n){var p=[],h=Math.floor(n/100),r=n%100;if(h)p.push(W[h]+' سو');if(r)p.push(W[r]);return p.join(' ')}
+function urWords(n){
+  if(n===0)return W[0];
+  var nm=['','ہزار','لاکھ','کروڑ','ارب','کھرب'],md=[1000,100,100,100,100,100],p=[],x=n;
+  for(var i=0;i<6;i++){var v=i===5?x:x%md[i];x=Math.floor(x/md[i]);if(v)p.unshift(i===0?b1000(v):W[v]+' '+nm[i])}
+  return p.join(' ');
+}
+function enWords(n){
+  if(n===0)return 'zero';
+  var o='one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen'.split(' '),
+      t='twenty thirty forty fifty sixty seventy eighty ninety'.split(' '),s=['','thousand','million','billion','trillion'];
+  function h(x){var r=[];if(x>=100){r.push(o[Math.floor(x/100)-1]+' hundred');x%=100}
+    if(x>=20){r.push(t[Math.floor(x/10)-2]+(x%10?'-'+o[x%10-1]:''))}else if(x>0){r.push(o[x-1])}return r.join(' ')}
+  var p=[],i=0;while(n>0){var c=n%1000;if(c)p.unshift(h(c)+(s[i]?' '+s[i]:''));n=Math.floor(n/1000);i++}
+  return p.join(' ');
+}
+$('w-go').onclick=function(){
+  var t=T[lang],out=$('w-out');out.classList.add('on');
+  if(lang!=='ur'&&lang!=='en'){out.textContent=t.wna;return}
+  var raw=$('w-val').value.replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}).replace(/[,\s]/g,'');
+  if(!/^\d{1,12}$/.test(raw)){out.textContent=t.werr;return}
+  var n=parseInt(raw,10);
+  out.innerHTML='<div class="row"><span>#</span><span>'+fmt(n)+'</span></div><p class="big">'+(lang==='ur'?urWords(n):enWords(n))+t.wsuf+'</p>';
+};
+
+var start='ur';
+try{var sl=localStorage.getItem('lang');if(sl&&T[sl])start=sl;else{var bl=(navigator.language||'').slice(0,2);if(T[bl])start=bl}}catch(e){}
+setLang(start);
 </script>
 </body>
 </html>
