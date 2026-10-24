@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Nexus – Your AI World in One Place</title>
+<meta name="description" content="AI Nexus is a beginner-friendly directory of AI tools for logos, images, video, voice, writing and design, with honest pricing labels and simple how-to steps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f172a;--bg2:#131c33;--card:#141f3a;--line:#27345a;--ink:#f8fafc;--muted:#94a3b8;--violet:#6366f1;--blue:#4f46e5;--teal:#06b6d4;--ok:#34d399;--warn:#fbbf24;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.6;
+background-image:radial-gradient(700px 360px at 85% -5%,rgba(99,102,241,.30),transparent 70%),radial-gradient(600px 320px at 5% 8%,rgba(6,182,212,.14),transparent 70%);background-repeat:no-repeat}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+h1,h2,h3{line-height:1.2;margin:0}
+h2{font-size:1.5rem;margin-bottom:6px}
+.sub{color:var(--muted);margin:0 0 20px}
+section{padding:44px 0}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:rgba(10,16,36,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1.15rem}
+nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem}
+nav a:hover{color:var(--ink)}
+.menu{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;cursor:pointer}
+@media(max-width:720px){.menu{display:block}nav{display:none;position:absolute;left:0;right:0;top:64px;background:var(--bg2);border-bottom:1px solid var(--line);padding:8px 18px 14px}nav.open{display:block}nav ul{flex-direction:column;gap:2px}nav a{display:block;padding:10px 0}}
+/* hero */
+.hero{padding:48px 0 20px;display:grid;gap:24px;align-items:center}
+@media(min-width:900px){.hero{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(2rem,6.5vw,3.4rem);}
+.hero p{max-width:560px;margin:16px 0 22px;color:var(--muted);font-size:1rem}
+.grad{background:linear-gradient(90deg,#a78bfa,#6366f1,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.search{display:flex;align-items:center;gap:8px;max-width:540px;background:#fff;border-radius:16px;padding:6px 6px 6px 14px}
+.search svg{flex:none}.search .go{width:44px;height:44px;border-radius:12px;padding:0;display:grid;place-items:center}
+input[type=search]{flex:1;min-width:0;padding:12px 6px;border:0;background:transparent;color:#0f172a;font:inherit;outline-offset:4px}
+.btn{display:inline-block;padding:12px 18px;border-radius:12px;border:0;background:linear-gradient(90deg,var(--violet),var(--blue));color:#fff;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);font:inherit;font-size:.9rem;cursor:pointer}
+.chip[aria-pressed=true]{background:linear-gradient(90deg,var(--violet),var(--blue));color:#fff;border-color:transparent}
+.label{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 6px}
+/* grids & cards */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:var(--violet);box-shadow:0 0 28px rgba(139,92,246,.18)}
+.tool-head{display:flex;gap:12px;align-items:center}
+.thumb{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#fff;flex:none}
+.tool-head h3{font-size:1.05rem}
+.tag{font-size:.75rem;color:var(--muted)}
+.price{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid currentColor}
+.price.Free{color:var(--ok)}.price.Freemium{color:var(--teal)}.price.Paid{color:var(--warn)}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.card ul{margin:0;padding-left:18px;color:var(--ink);font-size:.88rem}
+details{font-size:.9rem}summary{cursor:pointer;color:#c4b5fd}
+details ol{margin:8px 0 0;padding-left:20px;color:var(--muted)}
+.meta{font-size:.75rem;color:var(--muted);margin-top:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.cat{cursor:pointer;text-align:left;font:inherit;color:inherit}
+.cat strong{display:block}.cat span{color:var(--muted);font-size:.85rem}
+.soon{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:999px;background:rgba(251,191,36,.12);color:var(--warn)}
+.empty{padding:28px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted);display:none}
+.count{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+.note{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--muted);font-size:.9rem}
+.guide h3{font-size:1.02rem}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.9rem}
+footer ul{display:flex;gap:18px;flex-wrap:wrap;list-style:none;padding:0;margin:0 0 10px}
+.text{max-width:720px;color:var(--muted)}
+
+.brand small{display:block;font-weight:400;font-size:.62rem;color:var(--muted);letter-spacing:.02em;margin-top:-2px}
+.pops{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;font-size:.85rem;color:var(--muted)}
+.pops .chip{padding:5px 12px;font-size:.82rem}
+.art{display:none}@media(min-width:900px){.art{display:block}}
+.feat4{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));padding:8px 0 0}
+.f4{display:flex;gap:12px;align-items:flex-start;text-align:left;font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.f4:hover{border-color:var(--violet)}
+.f4 i{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-weight:700;color:#fff}
+.f4 strong{display:block;font-size:.95rem}.f4 span{display:block;color:var(--muted);font-size:.8rem;line-height:1.45;margin-top:2px}
+.row-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.row-h a{color:#a5b4fc;font-size:.85rem;text-decoration:none}
+.tiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font:inherit;color:inherit;cursor:pointer;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 8px}
+.tile:hover{border-color:var(--violet)}
+.tile .thumb{width:52px;height:52px;border-radius:14px;font-size:1.2rem}
+.tile b{font-size:.9rem;font-weight:600}.tile span{font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#home" aria-label="AI Nexus home">
+      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><path d="M5 35 20 5l15 30" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 35l7-14 7 14" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>AI Nexus<small>All AI Tools • Create • Explore • Grow</small></span>
+    </a>
+    <button class="menu" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#directory">AI Tools</a></li>
+        <li><a href="#directory" data-c="logo">Logo Generator</a></li>
+        <li><a href="#directory" data-c="image">Image Generator</a></li>
+        <li><a href="#directory" data-c="video">Video Generator</a></li>
+        <li><a href="#guides">Guides</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Your AI World<br>in <span class="grad">One Place</span></h1>
+      <p>AI tools, logo, image, video and more — sab kuch ek hi jagah. Bina kisi mushkil ke, apni creativity ko next level par le jayein.</p>
+      <form class="search" role="search" id="heroSearch">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input type="search" id="q" placeholder="Search AI tools, e.g. logo maker, image generator…" aria-label="Search AI tools" autocomplete="off">
+        <button class="btn go" type="submit" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+      </form>
+      <div class="pops"><span>Popular:</span>
+        <button class="chip" type="button" data-q="logo">Logo Maker</button>
+        <button class="chip" type="button" data-c="image">Image Generator</button>
+        <button class="chip" type="button" data-c="video">Video Generator</button>
+        <button class="chip" type="button" data-q="speech">Text to Speech</button>
+      </div>
+    </div>
+    <svg class="art" viewBox="0 0 360 260" aria-hidden="true"><defs><radialGradient id="gl"><stop offset="0" stop-color="#6366f1" stop-opacity=".55"/><stop offset="1" stop-color="#6366f1" stop-opacity="0"/></radialGradient><linearGradient id="ln" x1="0" x2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><circle cx="180" cy="130" r="120" fill="url(#gl)"/><g stroke="url(#ln)" stroke-width="2" fill="none" opacity=".8"><path d="M70 70 180 130 290 60M70 200 180 130 300 200M180 130V30"/></g><g fill="#0f172a" stroke="url(#ln)" stroke-width="2.5"><circle cx="180" cy="130" r="30"/><circle cx="70" cy="70" r="16"/><circle cx="290" cy="60" r="16"/><circle cx="70" cy="200" r="16"/><circle cx="300" cy="200" r="16"/><circle cx="180" cy="30" r="13"/></g><circle cx="180" cy="130" r="9" fill="#06b6d4"/></svg>
+  </div>
+
+  <div class="feat4" id="feat4"></div>
+
+  <section id="popularTiles"><div class="row-h"><h2>Popular AI Tools</h2><a href="#directory">View all tools →</a></div><p class="sub">Our editor’s picks for beginners. These are not ranked by traffic.</p><div class="tiles" id="gTiles"></div></section>
+
+  <section id="featured"><h2>Featured AI tools</h2><p class="sub">Hand-picked tools that are a good place to start.</p><div class="grid" id="gFeatured"></div></section>
+
+  <section id="categories"><h2>Browse by category</h2><p class="sub">Tap a category to filter the directory below.</p><div class="grid" id="gCats"></div></section>
+
+  <section id="create"><h2>AI creation tools</h2><p class="sub">Our own generators are being built in stages. Until they are ready, these buttons take you to existing tools that do the job.</p><div class="grid" id="gCreate"></div></section>
+
+  <section id="directory">
+    <h2>AI tools directory</h2>
+    <p class="sub">Search and filter every tool in the directory.</p>
+    <div class="label">Category</div><div class="chips" id="fCat"></div>
+    <div class="label">Pricing</div><div class="chips" id="fPrice"></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="grid" id="gAll"></div>
+    <div class="empty" id="empty"><p>No tools match your search.</p><button class="btn ghost" id="reset" type="button">Clear search and filters</button></div>
+  </section>
+
+  
+  <section id="recent"><h2>Recently added</h2><p class="sub">Newest entries first.</p><div class="grid" id="gNew"></div></section>
+
+  <section id="guides"><h2>Beginner guides</h2><p class="sub">Short, practical reading.</p>
+    <div class="grid">
+      <article class="card guide"><h3>How to write a good AI prompt</h3><p>Say what you want, who it is for, the style, and any limits. Example: “A friendly 3-line description for a small bakery’s Instagram bio.” Then ask the tool to improve one thing at a time.</p></article>
+      <article class="card guide"><h3>Free, freemium or paid?</h3><p>Free: no payment needed. Freemium: a free plan with limits, paid plans for more. Paid: you pay to use the main feature or to download results. Limits and prices change, so always check the official site.</p></article>
+      <article class="card guide"><h3>Stay safe with AI tools</h3><p>Do not paste passwords, ID numbers or private documents into AI tools. Never share an API key publicly. Read each tool’s rules before using results for business.</p></article>
+    </div>
+  </section>
+
+  <section id="about"><h2>About AI Nexus</h2><p class="text">AI Nexus is a beginner-friendly directory of AI tools. Every entry links to the official website and shows a pricing label with the date we last checked it. We do not rank tools by payment, and we only list tools whose official pages we have verified.</p></section>
+  <section id="contact"><h2>Contact</h2><p class="text">A contact form will be added in a later stage. Until then there is no contact address on this site.</p></section>
+  <section id="privacy"><h2>Privacy Policy</h2><p class="text">This version of AI Nexus has no accounts and does not collect personal data. Your search text stays in your browser. A full policy will be published before any feature that sends data to a server is launched.</p></section>
+  <section id="terms"><h2>Terms</h2><p class="text">Information here is provided as a guide only. Prices, limits and features are set by each provider and can change at any time. Always confirm details on the official website before paying.</p></section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li><a href="#privacy">Privacy Policy</a></li><li><a href="#terms">Terms</a></li></ul>
+    <div>© 2026 AI Nexus. Your AI World in One Place.</div>
+  </div>
+</footer>
+
+<script>
+/* ========== EDIT HERE: categories and tools ========== */
+var VERIFIED='2026-10-20';
+var CATS=[
+ {id:'logo',name:'AI Logo Generators'},{id:'image',name:'AI Image Generators'},{id:'video',name:'AI Video Generators'},
+ {id:'voice',name:'AI Voice Generators'},{id:'writing',name:'AI Writing Tools'},{id:'design',name:'AI Design Tools'},
+ {id:'coding',name:'AI Coding Tools'},{id:'productivity',name:'AI Productivity Tools'},{id:'platforms',name:'Models & Platforms'}
+];
+var TOOLS=[
+ {name:'ChatGPT',cat:'writing',price:'Freemium',url:'https://chatgpt.com',color:'#10a37f',featured:true,popular:true,added:'2026-10-20',
+  desc:'An AI assistant from OpenAI for writing, brainstorming, studying and everyday questions.',
+  features:['Chat-style help with text tasks','Free plan with usage limits','Paid plans for higher limits'],
+  steps:['Open chatgpt.com.','Create a free account or sign in.','Type a clear request, for example “Write a short bio for my small shop”.','Ask follow-up questions to improve the answer.']},
+ {name:'Canva',cat:'design',price:'Freemium',url:'https://www.canva.com',color:'#7d2ae8',featured:true,popular:true,added:'2026-10-20',
+  desc:'Online design tool with templates for social posts, presentations and posters, plus built-in AI features.',
+  features:['Large template library','Permanent free plan','AI design tools, some limited on the free plan'],
+  steps:['Open canva.com and sign up for free.','Choose a size or template, such as an Instagram post.','Edit the text, colours and images.','Download or share your design.']},
+ {name:'Adobe Express',cat:'design',price:'Freemium',url:'https://www.adobe.com/express',color:'#e03a3e',featured:true,added:'2026-10-20',
+  desc:'Adobe’s browser and mobile design tool for quick social graphics, flyers and short videos.',
+  features:['Free plan with templates and basic editing tools','Works in desktop browsers and on mobile phones','Premium plan adds more templates and AI credits'],
+  steps:['Open adobe.com/express.','Sign in with a free Adobe account.','Pick a template and edit it.','Export or share the result.']},
+ {name:'Hugging Face',cat:'platforms',price:'Freemium',url:'https://huggingface.co',color:'#f5a623',featured:true,added:'2026-10-20',
+  desc:'A hub where the community shares open AI models, datasets and small demo apps called Spaces.',
+  features:['Free account, no credit card needed to start','Try AI demos in your browser through Spaces','Paid plans for extra compute and storage'],
+  steps:['Open huggingface.co and create a free account.','Open “Spaces” and search for a topic like “image”.','Try a demo and read the notes on its page.']},
+ {name:'Leonardo.Ai',cat:'image',price:'Freemium',url:'https://leonardo.ai',color:'#6d5dfc',popular:true,added:'2026-10-20',
+  desc:'AI image generator with a free plan that gives a daily allowance of tokens.',
+  features:['Free plan with a daily token allowance','Several image models and styles','Paid plans add more tokens and speed'],
+  steps:['Open leonardo.ai and sign up.','Choose the image generation tool.','Describe the image you want and pick a model.','Generate. Check the plan’s terms before using images commercially.']},
+ {name:'ElevenLabs',cat:'voice',price:'Freemium',url:'https://elevenlabs.io',color:'#2b2b36',popular:true,added:'2026-10-20',
+  desc:'AI text-to-speech service that turns written text into natural-sounding voice.',
+  features:['Free plan with 10,000 credits per month','Free plan is for non-commercial use with attribution','Paid plans add commercial rights and more credits'],
+  steps:['Create a free account at elevenlabs.io.','Open Text to Speech.','Choose a voice and paste your text.','Generate, listen, and download.']},
+ {name:'Runway',cat:'video',price:'Freemium',url:'https://runwayml.com',color:'#1c1c1c',popular:true,added:'2026-10-20',
+  desc:'AI video and image creation tool, popular with creators for short generated clips.',
+  features:['Free plan with a one-time credit allowance (125 credits)','Image-to-video and AI image tools','Paid plans give monthly credits'],
+  steps:['Open runwayml.com and sign up.','Pick a video or image tool.','Add your prompt or a starting image.','Generate and watch your credit balance.']},
+ {name:'Looka',cat:'logo',price:'Paid',url:'https://looka.com',color:'#0ea5e9',added:'2026-10-20',
+  desc:'AI logo maker. Answer a few questions, get logo ideas, and pay only when you download.',
+  features:['Free to design and preview logos','Downloading needs a paid package','Packages differ in file types, so compare them'],
+  steps:['Open looka.com and enter your brand name and industry.','Pick styles and colours you like.','Choose a design and edit it.','Compare the packages before you buy.']}
+];
+TOOLS.push({name:'Midjourney',cat:'image',price:'Paid',url:'https://www.midjourney.com',color:'#1f2937',popular:true,added:'2026-10-20',
+  desc:'AI image generator known for detailed, artistic images. It is subscription-only, with no permanent free plan.',
+  features:['Paid subscription needed to generate images','Works in the browser and through Discord','Paid plans also include image-to-video'],
+  steps:['Open midjourney.com.','Subscribe to a plan and sign in with a Discord or Google account.','Open the Create page and describe your image.','Pick your favourite of the four results to upscale or vary.']});
+var CREATE=[
+ {t:'Logo generator',cat:'logo',stage:'Stage 3',d:'Our own logo generator is not built yet.'},
+ {t:'Image generator',cat:'image',stage:'Stage 4',d:'Our own image generator is not built yet.'},
+ {t:'Video generator',cat:'video',stage:'Stage 5',d:'Our own video generator is not built yet.'}
+];
+/* ========== end of editable data ========== */
+
+var $=function(i){return document.getElementById(i)};
+var state={q:'',cat:'all',price:'all'};
+var catName=function(id){var c=CATS.filter(function(x){return x.id===id})[0];return c?c.name:id};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+
+function card(t){
+  return '<article class="card"><div class="tool-head"><div class="thumb" style="background:'+t.color+'" aria-hidden="true">'+esc(t.name.charAt(0))+'</div><div><h3>'+esc(t.name)+'</h3><span class="tag">'+esc(catName(t.cat))+'</span></div></div>'+
+  '<div><span class="price '+t.price+'">'+t.price+'</span></div><p>'+esc(t.desc)+'</p>'+
+  '<ul>'+t.features.map(function(f){return '<li>'+esc(f)+'</li>'}).join('')+'</ul>'+
+  '<details><summary>How to get started</summary><ol>'+t.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol></details>'+
+  '<div class="actions"><a class="btn" href="'+t.url+'" target="_blank" rel="noopener noreferrer">Visit official site</a></div>'+
+  '<div class="meta">Pricing last checked: '+VERIFIED+'. Prices and limits change, so confirm on the official site.</div></article>';
+}
+function fill(id,list){$(id).innerHTML=list.map(card).join('')}
+
+function matches(t){
+  var q=state.q.toLowerCase().trim();
+  if(state.cat!=='all'&&t.cat!==state.cat)return false;
+  if(state.price!=='all'&&t.price!==state.price)return false;
+  if(!q)return true;
+  var hay=(t.name+' '+t.desc+' '+catName(t.cat)+' '+t.price+' '+t.features.join(' ')).toLowerCase();
+  return q.split(/\s+/).every(function(w){return hay.indexOf(w)>-1});
+}
+function renderDirectory(){
+  var list=TOOLS.filter(matches);
+  $('gAll').innerHTML=list.map(card).join('');
+  $('empty').style.display=list.length?'none':'block';
+  $('count').textContent=list.length+' of '+TOOLS.length+' tools shown';
+  document.querySelectorAll('#fCat .chip').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===state.cat)});
+  document.querySelectorAll('#fPrice .chip').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===state.price)});
+}
+function chips(id,items,key){
+  $(id).innerHTML=items.map(function(i){return '<button type="button" class="chip" data-v="'+i[0]+'" aria-pressed="false">'+esc(i[1])+'</button>'}).join('');
+  $(id).onclick=function(e){var b=e.target.closest('.chip');if(!b)return;state[key]=b.dataset.v;renderDirectory()};
+}
+function goDirectory(){$('directory').scrollIntoView()}
+
+/* build page */
+fill('gFeatured',TOOLS.filter(function(t){return t.featured}));
+var CAT_SHORT={logo:'AI Logo',image:'AI Image',video:'AI Video',voice:'AI Voice',writing:'Chat & Write',design:'AI Design',coding:'AI Coding',productivity:'Productivity',platforms:'AI Platform'};
+$('gTiles').innerHTML=TOOLS.filter(function(t){return t.popular}).map(function(t){
+  return '<button type="button" class="tile" data-n="'+esc(t.name)+'"><div class="thumb" style="background:'+t.color+'" aria-hidden="true">'+esc(t.name.charAt(0))+'</div><b>'+esc(t.name)+'</b><span>'+esc(CAT_SHORT[t.cat]||t.cat)+'</span></button>';
+}).join('');
+$('gTiles').onclick=function(e){var b=e.target.closest('.tile');if(!b)return;state={q:b.dataset.n,cat:'all',price:'all'};$('q').value=b.dataset.n;renderDirectory();goDirectory()};
+var F4=[['L','#f97316','AI Logo Generator','Find tools that create unique logos for your brand or business.','logo'],['I','#8b5cf6','AI Image Generator','Find tools that turn your ideas into stunning images.','image'],['V','#3b82f6','AI Video Generator','Find tools that create amazing videos with AI.','video'],['D','#10b981','AI Tools Directory','Explore '+TOOLS.length+' checked free, freemium and paid AI tools.','all']];
+$('feat4').innerHTML=F4.map(function(f){return '<button type="button" class="f4" data-c="'+f[4]+'"><i style="background:'+f[1]+'" aria-hidden="true">'+f[0]+'</i><div><strong>'+f[2]+'</strong><span>'+f[3]+'</span></div></button>'}).join('');
+$('feat4').onclick=function(e){var b=e.target.closest('.f4');if(!b)return;state={q:'',cat:b.dataset.c,price:'all'};$('q').value='';renderDirectory();goDirectory()};
+document.querySelector('.pops').onclick=function(e){var b=e.target.closest('.chip');if(!b)return;
+  if(b.dataset.c){state={q:'',cat:b.dataset.c,price:'all'};$('q').value=''}else{state={q:b.dataset.q,cat:'all',price:'all'};$('q').value=b.dataset.q}
+  renderDirectory();goDirectory()};
+document.querySelectorAll('nav a[data-c]').forEach(function(a){a.addEventListener('click',function(){state={q:'',cat:a.dataset.c,price:'all'};$('q').value='';renderDirectory()})});
+fill('gNew',TOOLS.slice().sort(function(a,b){return b.added>a.added?1:-1}).slice(0,4));
+chips('fCat',[['all','All']].concat(CATS.map(function(c){return [c.id,c.name]})),'cat');
+chips('fPrice',[['all','Any price'],['Free','Free'],['Freemium','Freemium'],['Paid','Paid']],'price');
+
+$('gCats').innerHTML=CATS.map(function(c){
+  var n=TOOLS.filter(function(t){return t.cat===c.id}).length;
+  return '<button type="button" class="card cat" data-c="'+c.id+'"><strong>'+esc(c.name)+'</strong><span>'+(n?n+(n===1?' tool':' tools'):'No tools yet')+'</span></button>';
+}).join('');
+$('gCats').onclick=function(e){var b=e.target.closest('.cat');if(!b)return;state.cat=b.dataset.c;renderDirectory();goDirectory()};
+
+$('gCreate').innerHTML=CREATE.map(function(c){
+  return '<div class="card"><h3>'+c.t+'</h3><div><span class="soon">Built-in tool: coming in '+c.stage+'</span></div><p>'+c.d+' You can already try existing tools:</p><div class="actions"><button type="button" class="btn ghost" data-c="'+c.cat+'">Browse '+esc(catName(c.cat))+'</button></div></div>';
+}).join('');
+$('gCreate').onclick=function(e){var b=e.target.closest('button[data-c]');if(!b)return;state.cat=b.dataset.c;renderDirectory();goDirectory()};
+
+$('heroSearch').onsubmit=function(e){e.preventDefault();state.q=$('q').value;state.cat='all';state.price='all';renderDirectory();goDirectory()};
+$('q').oninput=function(){state.q=this.value;renderDirectory()};
+$('reset').onclick=function(){state={q:'',cat:'all',price:'all'};$('q').value='';renderDirectory()};
+$('menuBtn').onclick=function(){var n=$('nav'),o=n.classList.toggle('open');this.setAttribute('aria-expanded',o)};
+$('nav').onclick=function(e){if(e.target.tagName==='A'){$('nav').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
+renderDirectory();
+</script>
+</body>
+</html>
